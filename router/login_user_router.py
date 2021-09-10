@@ -11,13 +11,11 @@ router = APIRouter()
 
 @router.post('/login-user')
 def create_login_user(user: LoginUserCreate, db: Session = Depends(get_db)):
-    print(user)
     encoded_password = encrypt_password(user.password)
     login_user = LoginUser(
         id=user.id, password=encoded_password, description=user.description)
     db.add(login_user)
     db.commit()
-    # db.refresh(login_user)
     return login_user
 
 
